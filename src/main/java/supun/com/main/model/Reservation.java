@@ -2,30 +2,24 @@ package supun.com.main.model;
 
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 import java.sql.Date;
 import java.util.Objects;
 
-//@Getter
-//@Setter
-//@NoArgsConstructor
+
 @Data
 
 @Entity
-//@IdClass(EmployeeId.class)
 // class for reservations implementing the serializable interface
 public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue()
     private int id;
-    // mapping the meeting room (PK)
-   // @Id
     @ManyToOne
     private MeetingRoom meetingRoom;
 
