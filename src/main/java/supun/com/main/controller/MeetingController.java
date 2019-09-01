@@ -16,7 +16,7 @@ import java.util.List;
 public class MeetingController {
 
     //logging purposes
-    Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+    Logger logger = LoggerFactory.getLogger(MeetingController.class);
 
     //Injecting the Meeting Repository
     @Autowired
