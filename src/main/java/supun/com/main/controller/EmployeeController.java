@@ -10,11 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import supun.com.main.exception.ResourceNotFoundException;
 import supun.com.main.model.Employee;
+import supun.com.main.model.MeetingRoom;
 import supun.com.main.repository.EmployeeRepository;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 @RestController
@@ -32,7 +34,7 @@ public class EmployeeController {
 
 
     // creating a new employee
-    @PostMapping("/employees")
+    @PostMapping("/employee")
     public Employee createEmployee(@Valid @RequestBody Employee employee) {
         //logging
         logger.info("------- Employees creating method ----------");
@@ -54,6 +56,20 @@ public class EmployeeController {
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
         logger.info("------ Find Employees By ID. Employee of Id" + employeeId + " is " + employee);
         return ResponseEntity.ok().body(employee);
+    }
+
+    //delete an employee
+    @DeleteMapping("/employees/{id}")
+    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") int employeeId)
+            throws ResourceNotFoundException {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
+
+        employeeRepository.delete(employee);
+        Map<String, Boolean> response = new HashMap<>();
+        logger.info("----- Employee Deleted Successfully ------");
+        response.put("Employee Deleted Successfully", Boolean.TRUE);
+        return response;
     }
 
 }
